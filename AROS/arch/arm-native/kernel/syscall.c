@@ -1,5 +1,5 @@
 /*
-    Copyright ï¿½ 2013, The AROS Development Team. All rights reserved.
+    Copyright © 2013, The AROS Development Team. All rights reserved.
     $Id$
 */
 
@@ -86,7 +86,8 @@ void cache_clear_e(void *addr, uint32_t length, uint32_t flags)
         addr += 32;
     }
 
-    __asm__ __volatile__("dsb":::"memory");
+    asm volatile ("mcr  p15, 0, %[r], c7, c10, 4" : : [r] "r" (0)); /* dsb */
+    //__asm__ __volatile__("dsb":::"memory");
 }
 
 void handle_syscall(void *regs)
